@@ -1,0 +1,58 @@
+{
+ "floorless": {
+  "model": "T1_PSRAND_SLOPE",
+  "sigma_w": 0.0,
+  "prior_sd_slope": 0.4999128651259269,
+  "n_eval": 1500,
+  "extended": {
+   "eta_quadrature": 12.69257935915711,
+   "err": 4.067295390351775,
+   "eta_well_inferable": 9.734482507244081,
+   "ratio_meas_over_wi": 1.303878182503457,
+   "post_sd_mean": 0.00589788894051321,
+   "post_sd_median": 0.000806623835482109,
+   "post_mean_rms_error": 0.01944903111647217,
+   "inferability_index": 0.999860811115585,
+   "runtime_s": 0.5
+  },
+  "compact": {
+   "eta_quadrature": 1.5594141727449868,
+   "err": 0.07180561053412676,
+   "eta_well_inferable": 1.5761606752899147,
+   "ratio_meas_over_wi": 0.9893751298281519,
+   "post_sd_mean": 0.00589788894051321,
+   "post_sd_median": 0.000806623835482109,
+   "post_mean_rms_error": 0.01944903111647217,
+   "inferability_index": 0.999860811115585,
+   "runtime_s": 0.6
+  }
+ },
+ "floored": {
+  "model": "T1_PSRAND_SLOPE_WN",
+  "sigma_w": 0.27,
+  "prior_sd_slope": 0.4999128651259269,
+  "n_eval": 1500,
+  "extended": {
+   "eta_quadrature": 7.759773520196531,
+   "err": 0.7911491047467304,
+   "eta_well_inferable": 8.583211580082175,
+   "ratio_meas_over_wi": 0.9040641079154477,
+   "post_sd_mean": 0.019916426088429025,
+   "post_sd_median": 0.019741057758659197,
+   "post_mean_rms_error": 0.023222018745434916,
+   "inferability_index": 0.9984127907305408,
+   "runtime_s": 0.5
+  },
+  "compact": {
+   "eta_quadrature": 1.6829661768195485,
+   "err": 0.07488308224330169,
+   "eta_well_inferable": 1.610213896544175,
+   "ratio_meas_over_wi": 1.0451817491027209,
+   "post_sd_mean": 0.019916426088429025,
+   "post_sd_median": 0.019741057758659197,
+   "post_mean_rms_error": 0.023222018745434916,
+   "inferability_index": 0.9984127907305408,
+   "runtime_s": 0.6
+  }
+ }
+}

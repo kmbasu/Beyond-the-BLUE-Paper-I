@@ -1,0 +1,46 @@
+{
+ "model": "T1_PSRAND_AMP",
+ "template": "compact",
+ "tier": "T1",
+ "n_ens": 6000,
+ "master_seed": 777102,
+ "split_seed": 12345,
+ "note": "amplitude-only variant (cheap-only): \u03b7_marg = E[\u03c3\u00b2]E[\u03c3\u207b\u00b2] closure (erratum 1)",
+ "sigma_mf": {
+  "pred": 0.31800085425574776,
+  "emp": 0.3148089198311826,
+  "r_L5": 0.2181060175293943
+ },
+ "moments": {
+  "mean": 0.005066751102009809,
+  "std": 1.3355728295212128,
+  "skewness": -0.012367176265136155,
+  "excess_kurtosis": 0.32518052359644045
+ },
+ "quadrature": {
+  "eta": 1.1282872408368163,
+  "err": 0.046099041089305536,
+  "n_grid": 201,
+  "method": "scaled quadrature (slope x amp factorized)",
+  "n_eval": 1500,
+  "runtime_s": 1.2,
+  "analytic_E2Einv2": 1.1166428828153108
+ },
+ "cumulants": {
+  "eta": 4212.872870636804,
+  "err": 6209.378843987412,
+  "k3": [
+   -27.70873093475378,
+   87.59961003146942
+  ],
+  "k4": [
+   25354.363416625085,
+   35498.878697834625
+  ],
+  "reliable": false,
+  "note": "heavy-tailed marks: diagnostic only"
+ },
+ "updated": "2026-08-28T23:43:42",
+ "host": "laptop (Apple M3)",
+ "floor": 0.0
+}

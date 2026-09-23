@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+build/
+dist/
+
+# macOS / editors
+.DS_Store
+.spyproject/
+.vscode/
+.idea/
+
+# Generated data: every map is regenerated from the registry seeds, never stored
+*.h5
+*.hdf5
+*.npy
+*.npz
+teaser_data/
+
+# Outputs written when re-running the pipeline (the shipped results live in results/)
+paper/figures/
+logs/
+resnet_teaser/logs/
+resnet_teaser/eval_out*/
+results/eta_results_backup_*/
+results/eta_results_hpc/
+results/eta_results_hpc_confusion/
+results/eta_results_hpc_pool*/
+results/eta_results_smoke*/
+results/eta_results/*.png
+*-out-*.[0-9]*
+*-err-*.[0-9]*
+
+# Model checkpoints: only the four best-validation teaser checkpoints of Fig. 3 are released
+*.pth
+!resnet_teaser/checkpoints/TEASER_T0_RED_REAL_L5_bc15.pth.best.pth
+!resnet_teaser/checkpoints/TEASER_T0_RED_REAL_L5_mse.pth.best.pth
+!resnet_teaser/checkpoints/TEASER_T1_PSRAND_WN_L7_bc15.pth.best.pth
+!resnet_teaser/checkpoints/TEASER_T1_PSRAND_WN_L7_mse.pth.best.pth

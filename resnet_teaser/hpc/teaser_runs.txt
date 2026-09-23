@@ -1,0 +1,15 @@
+# ResNet teaser runs (Paper I Sec. 6.1).  One line per run;
+# columns: LABEL  MODEL  TRAIN_H5  EVAL_H5  LOSS  LAMBDA(- = script default)  CHECKPOINT
+# Array index = line number among the non-comment lines (sbatch --array=1-6 hpc/teaser_train.slurm).
+# Loss variants: mse | bias_corrected_mse (the production loss, default lambda 15, 8 bins over
+# [0, L]) | ema_bias_corrected_mse (backup; lambda 3 -- the legacy 10 diverged in the smoke tests).
+# Optional T0_WHITE cell (not used in the paper; generate with --white-sigma 9 first): uncomment
+# the last two lines and extend --array accordingly.
+T1a T0_RED_REAL  TEASER_T0_RED_REAL_train30k_L5_s880034.h5  TEASER_T0_RED_REAL_evalnoise6000_s990034.h5  mse                    -  TEASER_T0_RED_REAL_L5_mse.pth
+T1b T0_RED_REAL  TEASER_T0_RED_REAL_train30k_L5_s880034.h5  TEASER_T0_RED_REAL_evalnoise6000_s990034.h5  bias_corrected_mse     -  TEASER_T0_RED_REAL_L5_bc15.pth
+T1c T0_RED_REAL  TEASER_T0_RED_REAL_train30k_L5_s880034.h5  TEASER_T0_RED_REAL_evalnoise6000_s990034.h5  ema_bias_corrected_mse 3  TEASER_T0_RED_REAL_L5_emabc3.pth
+T2a T1_PSRAND_WN TEASER_T1_PSRAND_WN_train30k_L7_s880221.h5 TEASER_T1_PSRAND_WN_evalnoise6000_s990221.h5 mse                    -  TEASER_T1_PSRAND_WN_L7_mse.pth
+T2b T1_PSRAND_WN TEASER_T1_PSRAND_WN_train30k_L7_s880221.h5 TEASER_T1_PSRAND_WN_evalnoise6000_s990221.h5 bias_corrected_mse     -  TEASER_T1_PSRAND_WN_L7_bc15.pth
+T2c T1_PSRAND_WN TEASER_T1_PSRAND_WN_train30k_L7_s880221.h5 TEASER_T1_PSRAND_WN_evalnoise6000_s990221.h5 ema_bias_corrected_mse 3  TEASER_T1_PSRAND_WN_L7_emabc3.pth
+# T0a T0_WHITE    TEASER_T0_WHITE_train30k_L5_s880000_sw9.h5 TEASER_T0_WHITE_evalnoise6000_s990000_sw9.h5 mse                    -  TEASER_T0_WHITE_L5_sw9_mse.pth
+# T0b T0_WHITE    TEASER_T0_WHITE_train30k_L5_s880000_sw9.h5 TEASER_T0_WHITE_evalnoise6000_s990000_sw9.h5 bias_corrected_mse     -  TEASER_T0_WHITE_L5_sw9_bc15.pth

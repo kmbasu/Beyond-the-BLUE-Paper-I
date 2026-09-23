@@ -1,0 +1,185 @@
+{
+ "model": "T1_PSRAND",
+ "template": "extended",
+ "tier": "T1",
+ "n_ens": 6000,
+ "master_seed": 777068,
+ "split_seed": 12345,
+ "note": "per-image slope+amplitude randomization (flagship \u00a75.1); quadrature exact; cumulants unreliable (variance-mixture tails)",
+ "sigma_mf": {
+  "pred": 1.279907308070717,
+  "emp": 1.3757586358066662,
+  "r_L5": 0.9531535424675173
+ },
+ "moments": {
+  "mean": 0.07719299808554839,
+  "std": 6.928204492701851,
+  "skewness": 11.380603745918243,
+  "excess_kurtosis": 692.2215561334376
+ },
+ "quadrature": {
+  "eta": 11.201834649840933,
+  "err": 2.408906387884663,
+  "n_grid": 12261,
+  "method": "scaled quadrature (slope x amp factorized)",
+  "n_eval": 1500,
+  "runtime_s": 1.8
+ },
+ "cumulants": {
+  "eta": 6068105652.841547,
+  "err": 10346063408.88263,
+  "k3": [
+   520977.1401226863,
+   871164.6462433812
+  ],
+  "k4": [
+   36407070979.628914,
+   67840913868.33936
+  ],
+  "reliable": false,
+  "note": "heavy-tailed marks: diagnostic only"
+ },
+ "updated": "2026-08-29T18:15:26",
+ "host": "laptop (Apple M3)",
+ "variational": {
+  "rungs": {
+   "linear": {
+    "eta": 0.9283774495124817,
+    "err": 0.09225211292505264,
+    "restart_etas": [
+     0.9283774495124817
+    ]
+   },
+   "quadratic": {
+    "eta": 0.9283774495124817,
+    "err": 0.09225211292505264,
+    "restart_etas": [
+     0.9283774495124817,
+     0.9283774495124817
+    ]
+   },
+   "cnn": {
+    "eta": 0.9283774495124817,
+    "err": 0.09225211292505264,
+    "restart_etas": [
+     0.9283774495124817,
+     0.9283774495124817
+    ]
+   }
+  },
+  "config": {
+   "epochs": 60,
+   "restarts": 2,
+   "batch": 1024,
+   "device": "mps",
+   "runtime_s": 333.4
+  }
+ },
+ "variational2": {
+  "rungs": {
+   "linear": {
+    "eta": 0.8393247127532959,
+    "err": 0.11921793222427368,
+    "restart_etas": [
+     0.8393247127532959
+    ],
+    "telemetry": {
+     "anchor": true
+    }
+   },
+   "reweight": {
+    "eta": 4.635421276092529,
+    "err": 3.9929349422454834,
+    "restart_etas": [
+     8.0999116897583,
+     4.635421276092529
+    ],
+    "telemetry": {
+     "restarts": [
+      {
+       "init_val": 0.9566748142242432,
+       "best_val": 7.889584064483643,
+       "best_epoch": 9,
+       "epochs_run": 25,
+       "moved_off_init": true,
+       "n_params_trainable": 1729,
+       "val_hist": [
+        0.95667,
+        7.04277,
+        6.92912,
+        7.7568,
+        7.70932,
+        7.88241,
+        7.558,
+        7.33831,
+        7.77565,
+        7.53087,
+        7.88958,
+        7.50889,
+        7.53616,
+        7.72035,
+        7.42542,
+        7.01509,
+        7.0881,
+        7.44809,
+        7.65991,
+        7.09751,
+        7.51682,
+        7.31422,
+        7.84443,
+        7.69534,
+        7.08609,
+        7.23266
+       ]
+      },
+      {
+       "init_val": 0.9566748142242432,
+       "best_val": 8.146235466003418,
+       "best_epoch": 6,
+       "epochs_run": 22,
+       "moved_off_init": true,
+       "n_params_trainable": 1729,
+       "val_hist": [
+        0.95667,
+        6.92412,
+        7.72438,
+        7.91406,
+        7.8143,
+        8.05007,
+        7.92515,
+        8.14624,
+        7.42887,
+        7.65202,
+        7.72889,
+        7.77019,
+        7.35419,
+        7.7361,
+        7.67095,
+        7.63082,
+        7.69008,
+        7.87894,
+        7.66985,
+        7.72205,
+        7.52135,
+        7.35101,
+        7.31316
+       ]
+      }
+     ],
+     "moved_off_init_any": true
+    }
+   }
+  },
+  "config": {
+   "epochs": 80,
+   "restarts": 2,
+   "batch": 1024,
+   "n_fit": 10800,
+   "n_val": 1200,
+   "n_eval": 1500,
+   "device": "mps",
+   "runtime_s": 123.0
+  }
+ },
+ "floor": 0.0
+}

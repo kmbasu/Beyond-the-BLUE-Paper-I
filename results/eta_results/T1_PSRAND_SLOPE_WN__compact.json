@@ -1,0 +1,46 @@
+{
+ "model": "T1_PSRAND_SLOPE_WN",
+ "template": "compact",
+ "tier": "T1",
+ "n_ens": 6000,
+ "master_seed": 777238,
+ "floor": 0.27,
+ "split_seed": 12345,
+ "note": "slope-only floored variant (cheap-only): the closure test against the EFFECTIVE lever arm u_eff = (P_red/P_tot) log(k/k_piv), which only applies once a non-tilting component exists",
+ "sigma_mf": {
+  "pred": 6.799856701218917,
+  "emp": 7.042760586595286,
+  "r_L5": 4.879367664610649
+ },
+ "moments": {
+  "mean": 0.013487777444299819,
+  "std": 4.434609236582413,
+  "skewness": -0.7312080050478651,
+  "excess_kurtosis": 95.35969983567081
+ },
+ "quadrature": {
+  "eta": 1.6829661768195459,
+  "err": 0.0748830822433014,
+  "n_grid": 61,
+  "sigma_w": 0.27,
+  "method": "full 2-D quadrature (slope x amp), floor sigma_w=0.27",
+  "n_eval": 1500,
+  "runtime_s": 3.0
+ },
+ "cumulants": {
+  "eta": -3916.8347094398723,
+  "err": 5753.413641423526,
+  "k3": [
+   65.71323698714572,
+   78.8261060052491
+  ],
+  "k4": [
+   -23704.14796760067,
+   34908.121979037496
+  ],
+  "reliable": false,
+  "note": "heavy-tailed marks: diagnostic only"
+ },
+ "updated": "2026-08-31T16:44:30",
+ "host": "laptop (Apple M3)"
+}

@@ -1,0 +1,26 @@
+# One Slurm array task per line: MODEL TEMPLATE RUNGS EPOCHS RESTARTS
+# Lines starting with '#' are skipped; task index N runs the N-th non-comment line (1-based).
+# Rungs are merged at rung level into eta_results_hpc/<MODEL>__<TEMPLATE>.json on the cluster.
+#
+# --- R1 / R1b / R2: the runs that can change a conclusion (6 restarts) ---
+T2_PCA_WN        extended  cnn,cubic                              200 6
+T2_PCA           extended  cnn,cubic                              200 6
+T2_MEDIAN_WN     extended  cnn,cubic                              200 6
+T2_MEDIAN        extended  cnn                                    200 6
+# --- floored compact cells of the two Tier-2 models with headroom ---
+T2_PCA_WN        compact   cnn,cubic                              200 4
+T2_MEDIAN_WN     compact   cnn,cubic                              200 4
+# --- P3.1 + the floored replacement for the CROSS_SYM cross-check: full ladders ---
+T2_CROSS_SYM_WN  extended  linear,reweight,quadratic,cubic,cnn    200 4
+T2_CROSS_SYM_WN  compact   linear,reweight,quadratic,cubic,cnn    200 4
+T2_CROSS_POS_WN  extended  linear,reweight,quadratic,cubic,cnn    200 4
+T2_CROSS_POS_WN  compact   linear,reweight,quadratic,cubic,cnn    200 4
+T2_GLITCH_WN     extended  linear,reweight,quadratic,cubic,cnn    200 4
+T2_GLITCH_WN     compact   linear,reweight,quadratic,cubic,cnn    200 4
+T1_RANDOR_WN     extended  linear,reweight,quadratic,cnn          200 4
+T1_RANDOR_WN     compact   linear,reweight,quadratic,cnn          200 4
+# --- P3.2: ladder-ordering null on the Tier-1 flagship (reweight already exists on the M3) ---
+T1_PSRAND_WN     extended  linear,quadratic,cnn                   200 4
+T1_PSRAND_WN     compact   linear,quadratic,cnn                   200 4
+# --- float64 follow-up (run with ETA_MAPS_FLOAT64=1): is the floorless MEDIAN cubic 1.22 physical? ---
+T2_MEDIAN        extended  cubic                                  200 6

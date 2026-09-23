@@ -1,0 +1,36 @@
+{
+ "T2_CONFUSION_WN": {
+  "P_hat_dc": 71897675388.35475,
+  "P_g_dc": 170341.46839015064,
+  "P_hat_kmin": 39172351.11314859,
+  "extended": {
+   "stored_style_all_modes": 214.69118058246104,
+   "dc_excluded": 199.88407615661325,
+   "dc_consistent": 199.87709573898456
+  },
+  "compact": {
+   "stored_style_all_modes": 41.86072688054094,
+   "dc_excluded": 41.71601241321738,
+   "dc_consistent": 41.71599845192405
+  }
+ },
+ "T2_CONFUSION_ATM": {
+  "P_hat_dc": 71918063820.19348,
+  "P_g_dc": 9649136.195675196,
+  "P_hat_kmin": 48586395.92422886,
+  "extended": {
+   "stored_style_all_modes": 5.3046605131453095,
+   "dc_excluded": 4.980434990952353,
+   "dc_consistent": 4.980261722904066,
+   "fully_analytic": 4.999954235783437,
+   "exact_expected": 5.0
+  },
+  "compact": {
+   "stored_style_all_modes": 4.970092840513338,
+   "dc_excluded": 4.969772538536965,
+   "dc_consistent": 4.969772367824445,
+   "fully_analytic": 4.961697323859853,
+   "exact_expected": 5.0
+  }
+ }
+}

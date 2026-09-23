@@ -1,0 +1,685 @@
+{
+  "description": "Noise-model registry of \"Beyond the BLUE I\" (eta_pipeline/models.py), exported by scripts/export_registry.py. Image i of model M is child i of numpy.random.SeedSequence(master_seed); see eta_pipeline.registry_tools.reconstruct_map.",
+  "conventions": {
+    "map_size_pix": 128,
+    "beam_fwhm_pix": 5.0,
+    "templates": {
+      "extended": "beta model, r_c = 7.0 px, convolved with the beam",
+      "compact": "the beam (point source)"
+    },
+    "power_spectrum_convention": "unnormalized FFT: E|fft2(n)|^2 = P(k), k in cycles/pixel",
+    "map_dtype": "float32 (float64 for the confusion rows; ETA_MAPS_FLOAT64=1 forces float64)",
+    "split_seed": 12345,
+    "split_fractions": {
+      "psd": 0.25,
+      "fit": 0.4,
+      "val": 0.1,
+      "eval": 0.25
+    },
+    "default_n_ens": 6000,
+    "seed_offsets": {
+      "white_floor": 606000,
+      "components": 991,
+      "teaser_train": 103000,
+      "teaser_eval": 213000
+    },
+    "other_seed_streams": {
+      "high_precision_quadrature": "777000 + 555000 + (row index in run_b2b_cheap.py)",
+      "closure_tests": "777000 + 900001 + int(1000 * sigma_alpha)   (run_b2b_cheap.py)"
+    },
+    "white_floor_knee_factor": 2.0
+  },
+  "models": {
+    "T0_WHITE": {
+      "display_name": "white noise",
+      "tier": "T0",
+      "master_seed": 777000,
+      "white_floor_sigma": 0.0,
+      "generator": "gen_t0_white",
+      "severity": {
+        "white_sigma": 1.0
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cnn"
+      ],
+      "exact_quadrature": false,
+      "complete_data_bound": false,
+      "cumulant_estimator_reliable": true,
+      "note": "white Gaussian benchmark; production η=1 null"
+    },
+    "T0_RED": {
+      "display_name": "red (1/f^3) noise",
+      "tier": "T0",
+      "master_seed": 777017,
+      "white_floor_sigma": 0.0,
+      "generator": "gen_t0_red",
+      "severity": {
+        "psd_isotropic": {
+          "slope": 3.0,
+          "amplitude": 5.0
+        },
+        "beam_fwhm_pix": 5.0
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cnn"
+      ],
+      "exact_quadrature": false,
+      "complete_data_bound": false,
+      "cumulant_estimator_reliable": true,
+      "note": "isotropic 1/f³ + beam; production η=1 null"
+    },
+    "T0_RED_REAL": {
+      "display_name": "red + white noise",
+      "tier": "T0",
+      "master_seed": 777034,
+      "white_floor_sigma": 1.0,
+      "generator": "gen_t0_red_real",
+      "severity": {
+        "psd_isotropic": {
+          "slope": 3.0,
+          "amplitude": 5.0
+        },
+        "beam_fwhm_pix": 5.0,
+        "white_sigma_unsmoothed": 1.0
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cnn"
+      ],
+      "exact_quadrature": false,
+      "complete_data_bound": false,
+      "cumulant_estimator_reliable": true,
+      "note": "realistic: beamed 1/f³ + unsmoothed white; η=1 null"
+    },
+    "T0_ANISO": {
+      "display_name": "fixed-direction anisotropy",
+      "tier": "T0",
+      "master_seed": 777051,
+      "white_floor_sigma": 0.0,
+      "generator": "gen_t0_aniso",
+      "severity": {
+        "psd_two_component": {
+          "slope_scan": 3.0,
+          "A_scan": 0.5,
+          "slope_iso": 3.0,
+          "A_iso": 5.0
+        },
+        "beam_fwhm_pix": 5.0
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cnn"
+      ],
+      "exact_quadrature": false,
+      "complete_data_bound": false,
+      "cumulant_estimator_reliable": true,
+      "note": "fixed-direction anisotropic Gaussian; η=1 with 2-D-PSD whitening"
+    },
+    "T1_PSRAND": {
+      "display_name": "spectral-tilt mixture",
+      "tier": "T1",
+      "master_seed": 777068,
+      "white_floor_sigma": 0.0,
+      "generator": "gen_t1_psrand",
+      "severity": {
+        "psrand": {
+          "slope_mean": 3.0,
+          "slope_sigma": 0.5,
+          "amp_mean": 5.0,
+          "amp_sigma": 0.8
+        },
+        "beam_fwhm_pix": 5.0
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cnn"
+      ],
+      "exact_quadrature": true,
+      "complete_data_bound": false,
+      "cumulant_estimator_reliable": false,
+      "note": "per-image slope+amplitude randomization (flagship §5.1); quadrature exact; cumulants unreliable (variance-mixture tails)"
+    },
+    "T1_PSRAND_SLOPE": {
+      "display_name": "slope-only tilt mixture",
+      "tier": "T1",
+      "master_seed": 777085,
+      "white_floor_sigma": 0.0,
+      "generator": "gen_t1_psrand_slope",
+      "severity": {
+        "psrand": {
+          "slope_mean": 3.0,
+          "slope_sigma": 0.5,
+          "amp_mean": 5.0,
+          "amp_sigma": 0.0
+        },
+        "beam_fwhm_pix": 5.0
+      },
+      "variational_rungs": null,
+      "exact_quadrature": true,
+      "complete_data_bound": false,
+      "cumulant_estimator_reliable": false,
+      "note": "slope-only variant (cheap-only): quadrature closure vs the M4 §5.2 dispersion scaling"
+    },
+    "T1_PSRAND_AMP": {
+      "display_name": "amplitude-only mixture",
+      "tier": "T1",
+      "master_seed": 777102,
+      "white_floor_sigma": 0.0,
+      "generator": "gen_t1_psrand_amp",
+      "severity": {
+        "psrand": {
+          "slope_mean": 3.0,
+          "slope_sigma": 0.0,
+          "amp_mean": 5.0,
+          "amp_sigma": 0.8
+        },
+        "beam_fwhm_pix": 5.0
+      },
+      "variational_rungs": null,
+      "exact_quadrature": true,
+      "complete_data_bound": false,
+      "cumulant_estimator_reliable": false,
+      "note": "amplitude-only variant (cheap-only): η_marg = E[σ²]E[σ⁻²] closure (erratum 1)"
+    },
+    "T1_RANDOR": {
+      "display_name": "random-orientation anisotropy",
+      "tier": "T1",
+      "master_seed": 777119,
+      "white_floor_sigma": 0.0,
+      "generator": "gen_t1_randor",
+      "severity": {
+        "psd_two_component": {
+          "slope_scan": 3.0,
+          "A_scan": 0.5,
+          "slope_iso": 3.0,
+          "A_iso": 5.0
+        },
+        "scan_angle": "uniform on [0, pi)",
+        "beam_fwhm_pix": 5.0
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cnn"
+      ],
+      "exact_quadrature": true,
+      "complete_data_bound": false,
+      "cumulant_estimator_reliable": false,
+      "note": "random-orientation anisotropy (§5.2); quadrature exact over θ"
+    },
+    "T2_MEDIAN": {
+      "display_name": "row-median residual",
+      "tier": "T2",
+      "master_seed": 777136,
+      "white_floor_sigma": 0.0,
+      "generator": "gen_t2_median",
+      "severity": {
+        "psd_two_component": {
+          "slope_scan": 3.0,
+          "A_scan": 0.5,
+          "slope_iso": 3.0,
+          "A_iso": 5.0
+        },
+        "beam_fwhm_pix": 5.0,
+        "processing": "row-median removal (axis=1)"
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cubic",
+        "cnn"
+      ],
+      "exact_quadrature": false,
+      "complete_data_bound": false,
+      "cumulant_estimator_reliable": true,
+      "note": "fixed anisotropy + row-median removal; light tails, cumulants OK; no complete-data bound (structure is processing-induced, not additive)"
+    },
+    "T2_CROSS_SYM": {
+      "display_name": "scan crossings (sym.)",
+      "tier": "T2",
+      "master_seed": 777153,
+      "white_floor_sigma": 0.0,
+      "generator": "gen_t2_cross_sym",
+      "severity": {
+        "psd_isotropic": {
+          "slope": 3.0,
+          "amplitude": 5.0
+        },
+        "beam_fwhm_pix": 5.0,
+        "scan_crossings": {
+          "n_crossings_mean": 8,
+          "along_scan_corr": 30.0,
+          "beam_sigma_rows": 2.0,
+          "amp_scale": 0.5,
+          "amp_df": 2.5
+        },
+        "sign_convention": "symmetric"
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cubic",
+        "cnn"
+      ],
+      "exact_quadrature": false,
+      "complete_data_bound": true,
+      "cumulant_estimator_reliable": false,
+      "note": "scan crossings, sign-symmetric (trispectrum-led; quadratic-rung null expected §21.2); t_2.5 marks ⇒ cumulants unreliable"
+    },
+    "T2_CROSS_POS": {
+      "display_name": "scan crossings (pos.)",
+      "tier": "T2",
+      "master_seed": 777170,
+      "white_floor_sigma": 0.0,
+      "generator": "gen_t2_cross_pos",
+      "severity": {
+        "psd_isotropic": {
+          "slope": 3.0,
+          "amplitude": 5.0
+        },
+        "beam_fwhm_pix": 5.0,
+        "scan_crossings": {
+          "n_crossings_mean": 8,
+          "along_scan_corr": 30.0,
+          "beam_sigma_rows": 2.0,
+          "amp_scale": 0.5,
+          "amp_df": 2.5
+        },
+        "sign_convention": "positive"
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cubic",
+        "cnn"
+      ],
+      "exact_quadrature": false,
+      "complete_data_bound": true,
+      "cumulant_estimator_reliable": false,
+      "note": "scan crossings, positive-definite (bispectrum-led legacy variant)"
+    },
+    "T2_GLITCH": {
+      "display_name": "sub-threshold glitches",
+      "tier": "T2",
+      "master_seed": 777187,
+      "white_floor_sigma": 0.0,
+      "generator": "gen_t2_glitch",
+      "severity": {
+        "psd_two_component": {
+          "slope_scan": 3.0,
+          "A_scan": 0.5,
+          "slope_iso": 3.0,
+          "A_iso": 5.0
+        },
+        "beam_fwhm_pix": 5.0,
+        "glitches": {
+          "n_glitches": 25,
+          "tau_pix": 5.0,
+          "amp_scale": 0.3,
+          "sigma_beam": 2.0,
+          "sigma_cross": 2.0
+        }
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cubic",
+        "cnn"
+      ],
+      "exact_quadrature": false,
+      "complete_data_bound": true,
+      "cumulant_estimator_reliable": true,
+      "note": "sub-threshold glitches (Pareto a=2.5 marks: finite 4th moment, cumulants heavy but defined); Campbell analytics in B2c"
+    },
+    "T2_PCA": {
+      "display_name": "PCA leakage",
+      "tier": "T2",
+      "master_seed": 777204,
+      "white_floor_sigma": 0.0,
+      "generator": "gen_t2_pca",
+      "severity": {
+        "psd_isotropic": {
+          "slope": 3.0,
+          "amplitude": 5.0
+        },
+        "beam_fwhm_pix": 5.0,
+        "pca_leakage": {
+          "n_leaked_mean": 3,
+          "leak_efficiency": 0.15,
+          "A_iso": 5.0,
+          "leak_df": 2.5,
+          "mode_corr_scan": 20.0,
+          "mode_corr_cross": 40.0
+        }
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cubic",
+        "cnn"
+      ],
+      "exact_quadrature": false,
+      "complete_data_bound": true,
+      "cumulant_estimator_reliable": false,
+      "note": "PCA leaked modes (t_2.5 marks ⇒ cumulants unreliable); tier factorization surrogate in B2c"
+    },
+    "T1_PSRAND_WN": {
+      "display_name": "spectral-tilt mixture + white floor",
+      "tier": "T1",
+      "master_seed": 777221,
+      "white_floor_sigma": 0.27,
+      "generator": "gen_t1_psrand_wn",
+      "severity": {
+        "psrand": {
+          "slope_mean": 3.0,
+          "slope_sigma": 0.5,
+          "amp_mean": 5.0,
+          "amp_sigma": 0.8
+        },
+        "beam_fwhm_pix": 5.0
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cnn"
+      ],
+      "exact_quadrature": true,
+      "complete_data_bound": false,
+      "cumulant_estimator_reliable": false,
+      "note": "PSRAND + unsmoothed white floor: the band-regularized flagship. Quadrature is the non-factorized 2-D form (the floor breaks P = a^2 P_base).  No AMP-only twin exists by design -- see note on T1_PSRAND_AMP."
+    },
+    "T1_PSRAND_SLOPE_WN": {
+      "display_name": "slope-only tilt mixture + white floor",
+      "tier": "T1",
+      "master_seed": 777238,
+      "white_floor_sigma": 0.27,
+      "generator": "gen_t1_psrand_slope_wn",
+      "severity": {
+        "psrand": {
+          "slope_mean": 3.0,
+          "slope_sigma": 0.5,
+          "amp_mean": 5.0,
+          "amp_sigma": 0.0
+        },
+        "beam_fwhm_pix": 5.0
+      },
+      "variational_rungs": null,
+      "exact_quadrature": true,
+      "complete_data_bound": false,
+      "cumulant_estimator_reliable": false,
+      "note": "slope-only floored variant (cheap-only): the closure test against the EFFECTIVE lever arm u_eff = (P_red/P_tot) log(k/k_piv), which only applies once a non-tilting component exists"
+    },
+    "T1_RANDOR_WN": {
+      "display_name": "random-orientation anisotropy + white floor",
+      "tier": "T1",
+      "master_seed": 777255,
+      "white_floor_sigma": 1.04,
+      "generator": "gen_t1_randor_wn",
+      "severity": {
+        "psd_two_component": {
+          "slope_scan": 3.0,
+          "A_scan": 0.5,
+          "slope_iso": 3.0,
+          "A_iso": 5.0
+        },
+        "scan_angle": "uniform on [0, pi)",
+        "beam_fwhm_pix": 5.0
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cnn"
+      ],
+      "exact_quadrature": true,
+      "complete_data_bound": false,
+      "cumulant_estimator_reliable": false,
+      "note": "random-orientation anisotropy + white floor; the incoherent-channel exemplar with a regularized compact band"
+    },
+    "T2_MEDIAN_WN": {
+      "display_name": "row-median residual + white floor",
+      "tier": "T2",
+      "master_seed": 777272,
+      "white_floor_sigma": 1.06,
+      "generator": "gen_t2_median_wn",
+      "severity": {
+        "psd_two_component": {
+          "slope_scan": 3.0,
+          "A_scan": 0.5,
+          "slope_iso": 3.0,
+          "A_iso": 5.0
+        },
+        "beam_fwhm_pix": 5.0,
+        "processing": "row-median removal (axis=1)"
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cubic",
+        "cnn"
+      ],
+      "exact_quadrature": false,
+      "complete_data_bound": false,
+      "cumulant_estimator_reliable": true,
+      "note": "row-median removal + white floor.  NOTE: the floor is applied BEFORE the median (Phase-A pipeline order); a row median is nonlinear, so this is not the same model as median-then-floor.  No complete-data bound (structure is processing-induced, not additive)"
+    },
+    "T2_CROSS_SYM_WN": {
+      "display_name": "scan crossings (sym.) + white floor",
+      "tier": "T2",
+      "master_seed": 777289,
+      "white_floor_sigma": 0.51,
+      "generator": "gen_t2_cross_sym_wn",
+      "severity": {
+        "psd_isotropic": {
+          "slope": 3.0,
+          "amplitude": 5.0
+        },
+        "beam_fwhm_pix": 5.0,
+        "scan_crossings": {
+          "n_crossings_mean": 8,
+          "along_scan_corr": 30.0,
+          "beam_sigma_rows": 2.0,
+          "amp_scale": 0.5,
+          "amp_df": 2.5
+        },
+        "sign_convention": "symmetric"
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cubic",
+        "cnn"
+      ],
+      "exact_quadrature": false,
+      "complete_data_bound": true,
+      "cumulant_estimator_reliable": false,
+      "note": "scan crossings (sign-symmetric) + white floor"
+    },
+    "T2_CROSS_POS_WN": {
+      "display_name": "scan crossings (pos.) + white floor",
+      "tier": "T2",
+      "master_seed": 777306,
+      "white_floor_sigma": 0.48,
+      "generator": "gen_t2_cross_pos_wn",
+      "severity": {
+        "psd_isotropic": {
+          "slope": 3.0,
+          "amplitude": 5.0
+        },
+        "beam_fwhm_pix": 5.0,
+        "scan_crossings": {
+          "n_crossings_mean": 8,
+          "along_scan_corr": 30.0,
+          "beam_sigma_rows": 2.0,
+          "amp_scale": 0.5,
+          "amp_df": 2.5
+        },
+        "sign_convention": "positive"
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cubic",
+        "cnn"
+      ],
+      "exact_quadrature": false,
+      "complete_data_bound": true,
+      "cumulant_estimator_reliable": false,
+      "note": "scan crossings (positive-definite) + white floor"
+    },
+    "T2_GLITCH_WN": {
+      "display_name": "sub-threshold glitches + white floor",
+      "tier": "T2",
+      "master_seed": 777323,
+      "white_floor_sigma": 0.86,
+      "generator": "gen_t2_glitch_wn",
+      "severity": {
+        "psd_two_component": {
+          "slope_scan": 3.0,
+          "A_scan": 0.5,
+          "slope_iso": 3.0,
+          "A_iso": 5.0
+        },
+        "beam_fwhm_pix": 5.0,
+        "glitches": {
+          "n_glitches": 25,
+          "tau_pix": 5.0,
+          "amp_scale": 0.3,
+          "sigma_beam": 2.0,
+          "sigma_cross": 2.0
+        }
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cubic",
+        "cnn"
+      ],
+      "exact_quadrature": false,
+      "complete_data_bound": true,
+      "cumulant_estimator_reliable": true,
+      "note": "sub-threshold glitches + white floor.  The floor also lowers the per-event significance xi, which README_PhaseB2a Sec. 5 traced to its absence -- recompute f_s and xi_rms before touching amp_scale"
+    },
+    "T2_PCA_WN": {
+      "display_name": "PCA leakage + white floor",
+      "tier": "T2",
+      "master_seed": 777340,
+      "white_floor_sigma": 0.1,
+      "generator": "gen_t2_pca_wn",
+      "severity": {
+        "psd_isotropic": {
+          "slope": 3.0,
+          "amplitude": 5.0
+        },
+        "beam_fwhm_pix": 5.0,
+        "pca_leakage": {
+          "n_leaked_mean": 3,
+          "leak_efficiency": 0.15,
+          "A_iso": 5.0,
+          "leak_df": 2.5,
+          "mode_corr_scan": 20.0,
+          "mode_corr_cross": 40.0
+        }
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cubic",
+        "cnn"
+      ],
+      "exact_quadrature": false,
+      "complete_data_bound": true,
+      "cumulant_estimator_reliable": false,
+      "note": "PCA leaked modes + white floor; the flagship Tier-2 case"
+    },
+    "T2_CONFUSION": {
+      "display_name": "source confusion",
+      "tier": "T2",
+      "master_seed": 777357,
+      "white_floor_sigma": 0.0,
+      "generator": "gen_t2_confusion",
+      "severity": {
+        "confusion": {
+          "counts": "Schechter fit to 350 um counts (noise_lib.confusion)",
+          "s_min_mJy": 0.1,
+          "s_cut_mJy": 100.0,
+          "sigma_c_mJy_per_beam": 6.4488194699641825,
+          "pixel_arcsec": 4.0,
+          "beam_fwhm_arcsec": 20.0
+        }
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cubic",
+        "cnn"
+      ],
+      "exact_quadrature": false,
+      "complete_data_bound": false,
+      "cumulant_estimator_reliable": false,
+      "note": "confusion noise, unclustered Poisson, NO floor.  The compact template has |tau~|^2/P exactly flat, so the MF has zero spectral leverage -- but flat is not convergent: the Fisher sum is mode-count-limited and ends up decided by floating point, not by physics.  Kept as the diagnostic that establishes this; the quotable numbers come from T2_CONFUSION_WN.  cumulant_ok is False, but NOT for the usual reason: the marks are perfectly well behaved (a dN/dS truncated at S_cut has finite q_3 and q_4 by construction, unlike the t_2.5 marks of CROSS/PCA).  Method B fails here because the field is nowhere near weakly non-Gaussian -- pixel skewness 2.13, excess kurtosis 9.14, and the measured ||k4(t^)||^2 is O(10^4) where the perturbative expansion needs <<1 -- and because the estimator subtracts O(M) disconnected pieces at M = 16384 (memo v2 Sec. 17).  Measured eta_pert came out -12052 +/- 8719: consistent with anything."
+    },
+    "T2_CONFUSION_WN": {
+      "display_name": "source confusion + white floor",
+      "tier": "T2",
+      "master_seed": 777374,
+      "white_floor_sigma": 3.2244097349820913,
+      "generator": "gen_t2_confusion_wn",
+      "severity": {
+        "confusion": {
+          "counts": "Schechter fit to 350 um counts (noise_lib.confusion)",
+          "s_min_mJy": 0.1,
+          "s_cut_mJy": 100.0,
+          "sigma_c_mJy_per_beam": 6.4488194699641825,
+          "pixel_arcsec": 4.0,
+          "beam_fwhm_arcsec": 20.0,
+          "f_N": 0.5
+        }
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cubic",
+        "cnn"
+      ],
+      "exact_quadrature": false,
+      "complete_data_bound": true,
+      "cumulant_estimator_reliable": false,
+      "note": "confusion + unsmoothed white floor at f_N = 0.5 (the production row).  Stationary, additive, no Tier-1 confound, both templates band-interior, bound stable: the best-conditioned Tier-2 case in the taxonomy.  Complete-data bounds 41.7 (compact) / 201.9 (extended) -- by far the largest in the campaign, and they are the formal ceiling for perfect cataloguing of every source to S_min.  cumulant_ok False for the same reason as the floorless row: the marks are fine, the field is simply far outside the perturbative regime and Method B is variance-limited at this pixel count."
+    },
+    "T2_CONFUSION_ATM": {
+      "display_name": "beam-sharing companion",
+      "tier": "T2",
+      "master_seed": 777391,
+      "white_floor_sigma": 0.0,
+      "generator": "_gen_confusion_atm",
+      "severity": {
+        "confusion": {
+          "counts": "Schechter fit to 350 um counts (noise_lib.confusion)",
+          "s_min_mJy": 0.1,
+          "s_cut_mJy": 100.0,
+          "sigma_c_mJy_per_beam": 6.4488194699641825,
+          "pixel_arcsec": 4.0,
+          "beam_fwhm_arcsec": 20.0,
+          "beam_correlated_companion_rho": 0.25
+        }
+      },
+      "variational_rungs": [
+        "linear",
+        "quadratic",
+        "cubic",
+        "cnn"
+      ],
+      "exact_quadrature": false,
+      "complete_data_bound": true,
+      "cumulant_estimator_reliable": false,
+      "note": "confusion + a BEAM-CORRELATED Gaussian companion at rho = 0.25 (the same 0.5 sigma_c of Gaussian noise as T2_CONFUSION_WN, differing only in whether it shares the beam).  The exactly solvable reference: whitening returns i.i.d. pixels, so eta is template-independent and equal to Var[Y] I(Y) for Y = D + W, = 3.569 at this configuration, with a complete-data bound of exactly 5.  A NULL TEST, not a production row: the band is not regularised (P is still ~|B|^2), and the gap between the measured and exact eta measures what the rounding side-channel costs.  floor = 0.0 is correct -- the companion is not an unsmoothed floor and must not be reported as one."
+    }
+  }
+}

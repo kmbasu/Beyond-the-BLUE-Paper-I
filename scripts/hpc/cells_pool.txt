@@ -1,0 +1,35 @@
+# Pooling-basis calibration and re-runs (2026-09-05, wallclock-safe layout).
+# Columns: MODEL TEMPLATE RUNGS EPOCHS RESTARTS KMAX POOL
+# Submit:   ETA_CELLS=cells_pool.txt sbatch --array=1-6 eta_ladder_array.slurm      (block A first)
+#           ETA_CELLS=cells_pool.txt sbatch --array=7-19 eta_ladder_array.slurm     (blocks B + C)
+# Results -> eta_results_hpc_pool/ (never the production set).
+#
+# Sizing (per epoch on a GH200: quadratic 10.2 s, cnn 11.6 s, cubic 25.6 s at kmax=3; kmax=8 ~1.4x):
+# the cubic rung runs in ITS OWN task for every heavy cell, so the worst case (all rungs to 200 epochs)
+# is ~5 h for a (quadratic,cnn) task at 4 restarts, ~7.3 h at 6 restarts, and ~5.7 h / 8.5 h for a
+# cubic-only task -- all inside the 12 h limit.  The two tasks of one cell write the same JSON; the
+# driver merges at rung level on every save (save_result_merged), so the order they finish in is
+# irrelevant.  'linear' is recomputed in both (cheap, identical).
+#
+# --- A. calibration on the exactly solvable row: target eta = 3.5688 (3.1453 after rounding dilution), BOTH templates
+T2_CONFUSION_ATM extended  linear,quadratic,cnn        200 4  3  template
+T2_CONFUSION_ATM extended  linear,cubic                200 4  3  template
+T2_CONFUSION_ATM compact   linear,quadratic,cnn        200 4  3  template
+T2_CONFUSION_ATM compact   linear,cubic                200 4  3  template
+T2_CONFUSION_ATM extended  linear,quadratic,cnn        200 4  8  fourier
+T2_CONFUSION_ATM compact   linear,quadratic,cnn        200 4  8  fourier
+# --- B. production re-runs with the union basis
+T2_CONFUSION_WN  extended  linear,reweight,quadratic,cnn  200 6  3  both
+T2_CONFUSION_WN  extended  linear,cubic                   200 6  3  both
+T2_CONFUSION_WN  compact   linear,reweight,quadratic,cnn  200 6  3  both
+T2_CONFUSION_WN  compact   linear,cubic                   200 6  3  both
+T2_MEDIAN_WN     extended  linear,reweight,quadratic,cnn  200 4  3  both
+T2_MEDIAN_WN     extended  linear,cubic                   200 4  3  both
+T2_MEDIAN_WN     compact   linear,reweight,quadratic,cnn  200 4  3  both
+T2_MEDIAN_WN     compact   linear,cubic                   200 4  3  both
+# --- C. ceiling checks: EXACT ceilings PSRAND 1.79 (cmp) / PCA 2.14 (ext), bound GLITCH <= 1.05; exceeding = bug
+T1_PSRAND_WN     compact   linear,quadratic,cnn        200 4  3  both
+T2_PCA_WN        extended  linear,quadratic,cnn        200 4  3  both
+T2_PCA_WN        extended  linear,cubic                200 4  3  both
+T2_GLITCH_WN     compact   linear,quadratic,cnn        200 4  3  both
+T2_GLITCH_WN     compact   linear,cubic                200 4  3  both

@@ -1,0 +1,45 @@
+{
+ "model": "T1_PSRAND_SLOPE",
+ "template": "compact",
+ "tier": "T1",
+ "n_ens": 6000,
+ "master_seed": 777085,
+ "split_seed": 12345,
+ "note": "slope-only variant (cheap-only): quadrature closure vs the M4 \u00a75.2 dispersion scaling",
+ "sigma_mf": {
+  "pred": 0.3708514441840363,
+  "emp": 0.38516630796784784,
+  "r_L5": 0.2668510459056135
+ },
+ "moments": {
+  "mean": 0.08281693649175836,
+  "std": 5.1634485938288535,
+  "skewness": 3.3939424349018563,
+  "excess_kurtosis": 160.01821476799446
+ },
+ "quadrature": {
+  "eta": 1.5594141726204047,
+  "err": 0.07180561052523526,
+  "n_grid": 61,
+  "method": "scaled quadrature (slope x amp factorized)",
+  "n_eval": 1500,
+  "runtime_s": 2.0
+ },
+ "cumulants": {
+  "eta": -5098319.547276697,
+  "err": 14063098.20827065,
+  "k3": [
+   12181.748043237107,
+   15591.509855153005
+  ],
+  "k4": [
+   -30626468.527789894,
+   85096406.3774543
+  ],
+  "reliable": false,
+  "note": "heavy-tailed marks: diagnostic only"
+ },
+ "updated": "2026-08-28T23:43:37",
+ "host": "laptop (Apple M3)",
+ "floor": 0.0
+}

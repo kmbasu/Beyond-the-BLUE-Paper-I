@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "beyond-the-blue"
+version = "1.0.0"
+description = "Advantage-ceiling (eta) framework, Tier-0/1/2 noise models and ResNet teaser runs of 'Beyond the BLUE I' (arXiv:2609.10475)"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "Kaustuv Basu"}]
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "h5py>=3.8",
+    "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+# the variational ladder (Method A) and the ResNet teaser need PyTorch
+torch = ["torch>=2.1", "pandas>=2.0"]
+test = ["pytest>=7"]
+
+[project.urls]
+Paper = "https://arxiv.org/abs/2609.10475"
+
+[tool.setuptools]
+packages = ["noise_lib", "eta_pipeline"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

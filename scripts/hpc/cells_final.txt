@@ -1,0 +1,16 @@
+# FINAL production pass for the confusion rows (2026-09-05): union basis, LARGE EVAL split.
+# Submit:  ETA_CELLS=cells_final.txt ETA_N_ENS=30000 sbatch --array=1-8 eta_ladder_array.slurm
+#   -> n_eval = 7500 (25 % of 30000), the same EVAL size as the earlier confusion-noise production runs for _WN;
+#      output dir eta_results_hpc_pool_both_k3_n30000/ (and _template_k3_n30000 for _ATM).
+# Why: the kmax=3 'both' pass had n_eval = 1500 and confusion's heavy-tailed EVAL split gave anchors
+# 0.823 +- 0.108 (cmp) / 0.952 +- 0.049 (ext) and unusable compact cubic EVAL values; the numbers the
+# paper quotes need the larger split.  Cubic in its own task (wallclock).  ~1 min extra for 42k maps.
+# Columns: MODEL TEMPLATE RUNGS EPOCHS RESTARTS KMAX POOL
+T2_CONFUSION_WN  extended  linear,reweight,quadratic,cnn  200 6  3  both
+T2_CONFUSION_WN  extended  linear,cubic                   200 6  3  both
+T2_CONFUSION_WN  compact   linear,reweight,quadratic,cnn  200 6  3  both
+T2_CONFUSION_WN  compact   linear,cubic                   200 6  3  both
+T2_CONFUSION_ATM extended  linear,quadratic,cnn           200 6  3  template
+T2_CONFUSION_ATM extended  linear,cubic                   200 6  3  template
+T2_CONFUSION_ATM compact   linear,quadratic,cnn           200 6  3  template
+T2_CONFUSION_ATM compact   linear,cubic                   200 6  3  template

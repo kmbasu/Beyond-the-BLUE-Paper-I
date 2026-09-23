@@ -1,0 +1,102 @@
+{
+ "closure_0.1_extended": {
+  "quad": 1.0832941569988317,
+  "err": 0.02525041261358253,
+  "forecast_2nd": 1.0903043886695258,
+  "forecast_ivw": 1.0914226434577927,
+  "pull_vs_2nd": -0.277628400690896,
+  "pass_2sigma": true
+ },
+ "closure_0.1_compact": {
+  "quad": 1.0319973850432107,
+  "err": 0.023516269476665932,
+  "forecast_2nd": 1.0181684784149403,
+  "forecast_ivw": 1.0179061617244012,
+  "pull_vs_2nd": 0.5880569893108332,
+  "pass_2sigma": true
+ },
+ "closure_0.2_extended": {
+  "quad": 1.4302783989885726,
+  "err": 0.040828927752325266,
+  "forecast_2nd": 1.358621942448072,
+  "forecast_ivw": 1.4061792684596055,
+  "pull_vs_2nd": 1.7550413514452268,
+  "pass_2sigma": true
+ },
+ "closure_0.2_compact": {
+  "quad": 1.0814562044059544,
+  "err": 0.0263256075813633,
+  "forecast_2nd": 1.0725592840871767,
+  "forecast_ivw": 1.0731898739733547,
+  "pull_vs_2nd": 0.33795688442442817,
+  "pass_2sigma": true
+ },
+ "amp_analytic": {
+  "quad": 1.1384177071754267,
+  "analytic": 1.1166428828153108
+ },
+ "ivw_vs_quad_T1_PSRAND_extended": {
+  "eta_quad_b2a": 11.201834649840933,
+  "eta_quad_hp": 11.220847876663033,
+  "eta_hp_err": 0.48496727873044304,
+  "eta_ivw_attainable": 6.985016421450038,
+  "eta_2nd_forecast": 3.242730726344201,
+  "ivw_below_hp": true
+ },
+ "ivw_vs_quad_T1_PSRAND_compact": {
+  "eta_quad_b2a": 1.597180130079462,
+  "eta_quad_hp": 1.7882804511203059,
+  "eta_hp_err": 0.026055992693758422,
+  "eta_ivw_attainable": 1.7139738026105893,
+  "eta_2nd_forecast": 1.5583970180557825,
+  "ivw_below_hp": true
+ },
+ "ivw_vs_quad_T1_PSRAND_SLOPE_extended": {
+  "eta_quad_b2a": 12.692579359170228,
+  "eta_quad_hp": 9.461312886091314,
+  "eta_hp_err": 0.30827723484739195,
+  "eta_ivw_attainable": 6.2557373401704135,
+  "eta_2nd_forecast": 3.1330951699781346,
+  "ivw_below_hp": true
+ },
+ "ivw_vs_quad_T1_PSRAND_SLOPE_compact": {
+  "eta_quad_b2a": 1.5594141726204047,
+  "eta_quad_hp": 1.5637938159923397,
+  "eta_hp_err": 0.02111704507284706,
+  "eta_ivw_attainable": 1.5350242963121135,
+  "eta_2nd_forecast": 1.4487614616897198,
+  "ivw_below_hp": true
+ },
+ "ivw_vs_quad_T1_PSRAND_AMP_extended": {
+  "eta_quad_b2a": 1.1384177071754267,
+  "eta_quad_hp": 1.116360937363191,
+  "eta_hp_err": 0.012790295467460975,
+  "eta_ivw_attainable": 1.1165776377145298,
+  "eta_2nd_forecast": 1.1096355563660638,
+  "ivw_below_hp": true
+ },
+ "ivw_vs_quad_T1_PSRAND_AMP_compact": {
+  "eta_quad_b2a": 1.1282872408368163,
+  "eta_quad_hp": 1.1067513664157584,
+  "eta_hp_err": 0.011676702009625273,
+  "eta_ivw_attainable": 1.1165776377145298,
+  "eta_2nd_forecast": 1.1096355563660638,
+  "ivw_below_hp": true
+ },
+ "ivw_vs_quad_T1_RANDOR_extended": {
+  "eta_quad_b2a": 1.2764076999358547,
+  "eta_quad_hp": 1.2708092639495325,
+  "eta_hp_err": 0.0161034906666931,
+  "eta_ivw_attainable": 1.0000167598133736,
+  "eta_2nd_forecast": 1.2226843393968,
+  "ivw_below_hp": true
+ },
+ "ivw_vs_quad_T1_RANDOR_compact": {
+  "eta_quad_b2a": 9.638493072180239,
+  "eta_quad_hp": 9.147777734103974,
+  "eta_hp_err": 0.11777683900666276,
+  "eta_ivw_attainable": 1.0001501338759837,
+  "eta_2nd_forecast": 2.4613661819532,
+  "ivw_below_hp": true
+ }
+}
