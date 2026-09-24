@@ -1,5 +1,7 @@
 # Beyond the BLUE I — code release
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22924969.svg)](https://doi.org/10.5281/zenodo.22924969)
+
 Code, noise models, and result files for
 
 > **K. Basu (2026), *Beyond the BLUE I: the advantage ceiling — how much can any estimator beat the matched filter in mm/submm survey data?*** [arXiv:2609.10475](https://arxiv.org/abs/2609.10475)
@@ -200,7 +202,7 @@ These are the scripts behind Sec. 6.1 and Fig. 3: the campaign-exact training an
 
 ## Citation
 
-If you use this code, please cite the paper. To pin the exact code version, also cite the archived release (the DOI badge will appear here once the release is archived on Zenodo):
+If you use this code, please cite the paper and, to pin the exact code version, the archived release on Zenodo. The version used for the paper is v1.0, [doi:10.5281/zenodo.22924970](https://doi.org/10.5281/zenodo.22924970). The concept DOI [10.5281/zenodo.22924969](https://doi.org/10.5281/zenodo.22924969) always resolves to the latest release.
 
 ```bibtex
 @article{Basu2026BeyondTheBLUE1,
@@ -212,6 +214,17 @@ If you use this code, please cite the paper. To pin the exact code version, also
   archivePrefix = {arXiv},
   primaryClass  = {astro-ph.IM},
   doi           = {10.48550/arXiv.2609.10475}
+}
+
+@software{Basu2026BeyondTheBLUE1code,
+  author    = {Basu, Kaustuv},
+  title     = {Beyond the {BLUE} {I}: code for the advantage-ceiling (eta) framework,
+               the Tier-0/1/2 noise models and the {ResNet} teaser runs},
+  year      = {2026},
+  version   = {v1.0},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.22924970},
+  url       = {https://doi.org/10.5281/zenodo.22924970}
 }
 ```
 

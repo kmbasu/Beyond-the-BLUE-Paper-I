@@ -1,14 +1,13 @@
 # This file tells GitHub (the "Cite this repository" button) and Zenodo how to
-# cite this code.  Before the first GitHub release, check `date-released`;
-# after Zenodo has minted the DOI, add it under `identifiers` (see the
-# commented template below).
+# cite this code.  For a new release: update `version` and `date-released`
+# (the version DOI of each release is listed on the Zenodo concept record).
 cff-version: 1.2.0
 message: >-
   If you use this code, please cite the paper below (preferred citation) and,
   for the exact code version, the archived software release.
 title: "Beyond the BLUE I: code for the advantage-ceiling (eta) framework, the Tier-0/1/2 noise models and the ResNet teaser runs"
 type: software
-version: 1.0.0
+version: "1.0"
 date-released: 2026-09-23
 license: MIT
 authors:
@@ -24,10 +23,13 @@ keywords:
   - non-Gaussian noise
   - convolutional neural networks
   - millimeter and submillimeter surveys
-# identifiers:
-#   - type: doi
-#     value: "10.5281/zenodo.XXXXXXX"
-#     description: "Concept DOI of the archived releases (Zenodo)"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.22924969"
+    description: "Concept DOI: all archived releases (resolves to the latest)"
+  - type: doi
+    value: "10.5281/zenodo.22924970"
+    description: "Version DOI of release v1.0"
 preferred-citation:
   type: article
   title: "Beyond the BLUE I: the advantage ceiling -- how much can any estimator beat the matched filter in mm/submm survey data?"

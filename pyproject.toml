@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "beyond-the-blue"
-version = "1.0.0"
+version = "1.0"
 description = "Advantage-ceiling (eta) framework, Tier-0/1/2 noise models and ResNet teaser runs of 'Beyond the BLUE I' (arXiv:2609.10475)"
 readme = "README.md"
 license = {text = "MIT"}
